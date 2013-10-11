@@ -19,6 +19,9 @@ Here are some helpful docs from Mozilla on the Web Audio API:
     buffAudio.play();
     buffAudio.seek(5); // seconds
     buffAudio.stop();
+    
+    buffAudio.initNewBuffer(buffer2);
+    buffAudio.play();
 
 ##Documentation:
 __initNewBuffer(buffer)__  
