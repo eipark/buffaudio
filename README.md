@@ -45,8 +45,18 @@ UNIMPLEMENTED. Might add some gain nodes or something...
 
 
 
-## Contribute/Issues
-Please contribute using pull requests and GitHub issues. I'd love help!
+## Contribute
+Please contribute using pull requests. Feel free to email me with questions/critiques/etc. ernie.park@gmail.com
+
+## Issues
+Submit issues through GitHub.  
+
+__Length issue__ The current version of the spec states: 
+
+>This interface represents a memory-resident audio asset (for one-shot sounds and other short audio clips). Its format is non-interleaved IEEE 32-bit linear PCM with a nominal range of -1 -> +1. It can contain one or more channels. Typically, it would be expected that the length of the PCM data would be fairly short (usually somewhat less than a minute). For longer sounds, such as music soundtracks, streaming should be used with the audio element and MediaElementAudioSourceNode.
+
+I want to use BuffAudio/AudioBuffers for longer form content that is recorded directly in the browser. It does not seem like MediaElementSourceNode would work very well for this case since I'd have to convert the AudioBuffer I recorded into a format compatible with the <audio> tag first. Is my current method just a hack or is there no real good solution here?
+    
 
 ## License
 The MIT License (MIT)
