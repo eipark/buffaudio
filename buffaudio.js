@@ -37,6 +37,7 @@
     this._startTimestamp = 0; // timestamp of last playback start, milliseconds
     this._isPlaying = false;
     this._bufferDuration = 0; // seconds
+    this._gainNode = audioContext.createGain();
 
     // Whenever we get a new AudioBuffer, we create a new AudioBufferSourceNode and reset
     // the playback time. Make sure any existing audio is stopped beforehand.
@@ -51,6 +52,9 @@
       this._source = this._audioContext.createBufferSource();
       this._source.buffer = this._buffer;
       this._source.connect(this._audioContext.destination);
+      this._source.connect(this._gainNode);
+      this._gainNode.connect(this._audioContext.destination);
+
       // Bind the callback to this
       var endOfPlayback = this.endOfPlayback.bind(this);
       this._source.onended = endOfPlayback;
@@ -99,7 +103,9 @@
       // If paused, calculate time where we stopped. Otherwise go back to beginning of playback (0).
       this._playbackTime = pause ? (Date.now() - this._startTimestamp)/1000 + this._playbackTime : 0;
     }
-
+    this.setVolume = function(volume) {
+      this._gainNode.gain.value = volume;
+    }
     // Callback for any time playback stops/pauses
     this.endOfPlayback = function(endEvent) {
       console.log("end of playback");
